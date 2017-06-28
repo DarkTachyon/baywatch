@@ -1,3 +1,3 @@
 # Michael Baywatch
 
-A catalog of Michael Bay's rediculous filmography.
+A catalog of Michael Bay's ridiculous filmography.
