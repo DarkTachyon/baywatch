@@ -74,10 +74,10 @@ const app = {
             name: f.flickName.value,
         }
 
-        this.flicks.push(flick)
+        this.flicks.unshift(flick)
 
         const listItem = this.renderListItem(flick)
-        this.list.appendChild(listItem)
+        this.list.insertBefore(listItem, this.list.firstChild)
 
         this.max++
     },
