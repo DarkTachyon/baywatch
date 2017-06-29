@@ -1,3 +1,7 @@
-#data, #buttons {
+#list-div, #buttons-div {
     background-color: #fafafa
+}
+
+#group {
+    margin-top: '2rem'
 }

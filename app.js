@@ -63,13 +63,7 @@ const app = {
         buttonGroupDiv.appendChild(downButton)
         buttonGroupDiv.appendChild(delButton)
 
-        this.addFlick(flick)
-
         return listDiv
-    },
-
-    addFlick(flick) {
-        this.flicks.push(flick)
     },
 
     handleSubmit(ev) {
@@ -80,6 +74,8 @@ const app = {
             name: f.flickName.value,
         }
 
+        this.flicks.push(flick)
+
         const listItem = this.renderListItem(flick)
         this.list.appendChild(listItem)
 
@@ -89,10 +85,10 @@ const app = {
     handleFav(ev) {
         ev.preventDefault()
         const tar = ev.target
-        if (ev.style.backgroundColor !== '#fff099')
-            ev.style.backgroundColor = 'fafafa'
+        if (tar.style.backgroundColor !== '#fff099')
+            tar.style.backgroundColor = 'fafafa'
         else
-            ev.style.backgroundColor = '#fff099'
+            tar.style.backgroundColor = '#fff099'
     },
 
     handleUp(ev) {
