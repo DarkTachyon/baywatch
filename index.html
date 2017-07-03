@@ -1,60 +1,57 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Michael Baywatch</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.0/css/foundation.min.css">
-        <link rel="stylesheet" href="app.css">
-    </head>
-    <body>
-        <div class="grid-x">
-            <div class="medium-8 medium-offset-2 cell">
-                <h1>Baywatch</h1>
-                <form id="flick-form" action="index.html" method="post">
-                    <div class="input-group">
-                        <input
-                        type="text"
-                        name="flickName"
-                        class="input-group-field"
-                        value=""
-                        placeholder="Name a flick"
-                        autofocus
-                        required
-                        >
-                        <div class="input-group-button">
-                            <button
-                            type="submit"
-                            name="button"
-                            class="success button">
-                            Add Flick
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-            <div class="medium-8 medium-offset-2 cell">
-                <ul id="flick-list">
-                    <div id="list-div" class="grid-x">
-                        <div class="small-6 cell">
-                            <p>Transformers</p>
-                        </div>
-                        <div id="buttons-div" class="small-6 cell">
-                            <div id="place-div" class="medium-8 medium-offset-2 cell">
-                                <div id="group" class="button-group">
-                                    <button id="fav" class="hollow button warning" type="button" name="button">Fav</button>
-                                    <button id="up" class="hollow button secondary" type="button" name="button">Up</button>
-                                    <button id="down" class="hollow button secondary" type="button" name="button">Down</button>
-                                    <button id="del" class="hollow button alert" type="button" name="button">Delete</button>
-                                </div>
-                        </div>
-                        </div>
-                    </div>
-                </ul>
-            </div>
-
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Michael Baywatch</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.0/css/foundation.min.css">
+    <link rel="stylesheet" href="app.css">
+  </head>
+  <body>
+    <div class="grid-x">
+      <div class="medium-8 medium-offset-2 cell">
+        <h1><small>(Michael)</small> Baywatch</h1>
+        <div class="banner">
+          <img src="michael.png" alt="">
         </div>
+        <form id="flick-form" data-lunch="rice">
+          <div class="input-group">
+            <input
+              type="text"
+              class="input-group-field"
+              name="flickName"
+              placeholder="Name a flick"
+              autofocus
+              required
+            >
+            <div class="input-group-button">
+              <button
+                class="success button"
+                type="submit"
+              >
+                Add flick
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
 
-        <script src="app.js"></script>
-    </body>
+      <div class="medium-8 medium-offset-2 cell list-container">
+        <ul id="flick-list" class="no-bullet">
+          <li class="template flick grid-x align-middle">
+            <span class="flick-name auto cell"></span>
+            <span class="actions button-group shrink cell">
+              <button class="fav button warning">fav</button>
+              <button class="remove button alert">del</button>
+            </span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <script src="app.js"></script>
+  </body>
 </html>

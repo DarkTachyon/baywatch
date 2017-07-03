@@ -1,110 +1,76 @@
 const app = {
-    init(selectors) {
-        this.flicks = []
-        this.max = 0
-        this.list = document.querySelector(selectors.listSelector)
+  init(selectors) {
+    this.flicks = []
+    this.max = 0
+    this.list = document.querySelector(selectors.listSelector)
+    this.template = document.querySelector(selectors.templateSelector)
 
-        document
-            .querySelector(selectors.formSelector)
-            .addEventListener('submit', this.handleSubmit.bind(this))
-      },
+    document
+      .querySelector(selectors.formSelector)
+      .addEventListener('submit', this.handleSubmit.bind(this))
+  },
 
-    renderListItem(flick) {
-        const listDiv = document.createElement('div')
-        listDiv.setAttribute('class', 'grid-x')
-        listDiv.style.backgroundColor = '#fafafa'
+  favFlick(flick, ev) {
+    const listItem = ev.target.closest('.flick')
+    flick.fav = listItem.classList.toggle('fav')
+  },
 
-        const flickDiv = document.createElement('div')
-        flickDiv.setAttribute('class', 'small-6 cell')
+  removeFlick(flick, ev) {
+    // remove from the DOM
+    const listItem = ev.target.closest('.flick')
+    listItem.remove()
 
-        const words = document.createElement('p')
-        words.textContent = flick.name
+    // remove from the array
+    const i = this.flicks.indexOf(flick)
+    this.flicks.splice(i, 1)
+  },
 
-        const buttonsDiv = document.createElement('div')
-        buttonsDiv.setAttribute('class', 'small-6 cell')
+  renderListItem(flick) {
+    const item = this.template.cloneNode(true)
+    item.classList.remove('template')
+    item.dataset.id = flick.id
+    item
+      .querySelector('.flick-name')
+      .textContent = flick.name
 
-        const placeDiv = document.createElement('div')
-        placeDiv.setAttribute('class', 'medium-8 medium-offset-2 cell')
+    item
+      .querySelector('button.remove')
+      .addEventListener(
+        'click',
+        this.removeFlick.bind(this, flick)
+      )
 
-        const buttonGroupDiv = document.createElement('div')
-        buttonGroupDiv.setAttribute('class', 'button-group')
+    item
+      .querySelector('button.fav')
+      .addEventListener(
+        'click',
+        this.favFlick.bind(this, flick)
+      )
 
-        const favButton = document.createElement('button')
-        favButton.setAttribute('class', 'hollow button warning')
-        favButton.textContent = 'Favorite'
-        favButton.addEventListener('favorite', this.handleFav.bind(this))
+    return item
+  },
 
-        const upButton = document.createElement('button')
-        upButton.setAttribute('class', 'hollow button secondary')
-        upButton.textContent = 'Up'
-        upButton.addEventListener('up', this.handleUp.bind(this))
+  handleSubmit(ev) {
+    ev.preventDefault()
+    const f = ev.target
+    const flick = {
+      id: this.max + 1,
+      name: f.flickName.value,
+      fav: false,
+    }
 
-        const downButton = document.createElement('button')
-        downButton.setAttribute('class', 'hollow button secondary')
-        downButton.textContent = 'Down'
-        downButton.addEventListener('down', this.handleDown.bind(this))
+    this.flicks.unshift(flick)
 
-        const delButton = document.createElement('button')
-        delButton.setAttribute('class', 'hollow button alert')
-        delButton.textContent = 'Delete'
-        delButton.addEventListener('delete', this.handleDelete.bind(this))
+    const listItem = this.renderListItem(flick)
+    this.list.insertBefore(listItem, this.list.firstElementChild)
 
-        listDiv.appendChild(flickDiv)
-        listDiv.appendChild(buttonsDiv)
-
-        flickDiv.appendChild(words)
-
-        buttonsDiv.appendChild(placeDiv)
-
-        placeDiv.appendChild(buttonGroupDiv)
-
-        buttonGroupDiv.appendChild(favButton)
-        buttonGroupDiv.appendChild(upButton)
-        buttonGroupDiv.appendChild(downButton)
-        buttonGroupDiv.appendChild(delButton)
-
-        return listDiv
-    },
-
-    handleSubmit(ev) {
-        ev.preventDefault()
-        const f = ev.target
-        const flick = {
-            id: this.max + 1,
-            name: f.flickName.value,
-        }
-
-        this.flicks.unshift(flick)
-
-        const listItem = this.renderListItem(flick)
-        this.list.insertBefore(listItem, this.list.firstChild)
-
-        this.max++
-    },
-
-    handleFav(ev) {
-        ev.preventDefault()
-        const tar = ev.target
-        if (tar.style.backgroundColor !== '#fff099')
-            tar.style.backgroundColor = 'fafafa'
-        else
-            tar.style.backgroundColor = '#fff099'
-    },
-
-    handleUp(ev) {
-
-    },
-
-    handleDown(ev) {
-
-    },
-
-    handleDelete(ev) {
-
-    },
+    this.max ++
+    f.reset()
+  },
 }
 
 app.init({
-    formSelector: 'form#flick-form',
-    listSelector: '#flick-list',
-    })
+  formSelector: 'form#flick-form',
+  listSelector: '#flick-list',
+  templateSelector: '.flick.template'
+})
