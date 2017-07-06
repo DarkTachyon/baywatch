@@ -47,7 +47,35 @@ const app = {
         this.favFlick.bind(this, flick)
       )
 
+    item
+        .querySelector('button.up')
+        .addEventListener(
+            'click',
+            this.moveUp.bind(this, flick)
+        )
+
     return item
+  },
+
+  moveUp(flick, ev) {
+    if (flick === this.flicks[0])
+        return
+    const currentLocation = this.flicks.indexOf(flick)
+    const tempFlick = this.flicks[currentLocation - 1]
+    this.flicks[currentLocation - 1] = flick
+    this.flicks[currentLocation] = tempFlick
+
+    const currentFlick = ev.target.closest('li')
+    const currentText = currentFlick.firstElementChild.textContent
+    const otherFlick = currentFlick.previousSibling
+    const otherText = otherFlick.firstElementChild.textContent
+    otherFlick.firstElementChild.textContent = currentText
+    currentFlick.firstElementChild.textContent = otherText
+
+  },
+
+  moveDown(flick, ev) {
+
   },
 
   handleSubmit(ev) {
